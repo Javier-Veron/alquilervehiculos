@@ -1,7 +1,11 @@
 public class Moto extends Vehiculo {
 
+    //Atributos
+
     boolean habilitado;
     double cilindrada;
+
+    //Constructores
 
     public Moto(double cilindrada){
         this.cilindrada = cilindrada;
@@ -11,14 +15,13 @@ public class Moto extends Vehiculo {
         this.cilindrada = cilindrada;
         this.habilitado = habilitado;
     }
-    //Metodo
+    //Metodo Heredado
 
     @Override
     public int cantidadPasajeros(){
         if (cilindrada >= 75) return 2;
         return 1;
     }
-    //Metodo Heredado
     @Override
     public double consumoCadaCienKM() {
         return 50+(cilindrada/10);

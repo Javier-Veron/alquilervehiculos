@@ -11,7 +11,7 @@ public abstract class Vehiculo {
 
     //Metodos
 
-    public int cantidadAccidentesPorAnio(Date anio){
+    public int cantidadAccidentesPorAnio(int anio){
         int resultado = 0;
             for (Accidente a : historialAccidentes){
                 if (a.fecha == anio) resultado +=1;
@@ -19,7 +19,7 @@ public abstract class Vehiculo {
         return resultado;
     }
 
-    public void agregarAccidente(int id, String desc,Date fecha){
+    public void agregarAccidente(int id, String desc,int fecha){
 
         Accidente nuevoAccidente = new Accidente(id, desc, fecha);
         historialAccidentes.add(nuevoAccidente);
@@ -29,13 +29,6 @@ public abstract class Vehiculo {
         return (cantidadPasajeros()*velocidadMaxima())/consumoCadaCienKM();
     }
 
-    public int accidentesEnElAnio(Date date){
-        int contador = 0;
-        for(Accidente a : historialAccidentes){
-            if (a.getFecha() == date) contador += 1;
-        }
-        return contador;
-    }
 
     //Metodos Abstractos
     public abstract int cantidadPasajeros();

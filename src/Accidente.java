@@ -1,13 +1,12 @@
-import java.util.Date;
-
 public class Accidente {
 
     //Atributos
     String descripcion;
-    Date fecha;
-    int id;
 
-    public Accidente( int id,String descripcion, Date fecha) {
+    int id,fecha;
+
+    //Constructor
+    public Accidente( int id,String descripcion,int fecha) {
         this.descripcion = descripcion;
         this.fecha = fecha;
         this.id = id;
@@ -23,11 +22,11 @@ public class Accidente {
         this.descripcion = descripcion;
     }
 
-    public Date getFecha() {
+    public int getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(int fecha) {
         this.fecha = fecha;
     }
 

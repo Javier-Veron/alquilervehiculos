@@ -1,12 +1,10 @@
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class Rodados {
 
     List<Vehiculo> vehiculos = new ArrayList<Vehiculo>();
 
-    public List<Vehiculo> vehiculosQueConsumenMenosDe(double consumo){
+    public List<Vehiculo> vehiculosQueConsumenMenosDe(int consumo){
         List<Vehiculo> temp = new ArrayList<Vehiculo>();
 
         for (Vehiculo v: vehiculos){
@@ -37,38 +35,35 @@ public class Rodados {
         return pasajeros;
     }
 
-    public List<Vehiculo> vehiculosMasAccidentadosEn(Date anio){
+    public List<Vehiculo> vehiculosMasAccidentadosEn(int anio){
+        List<Vehiculo> listaFiltrada = new ArrayList<Vehiculo>();
 
         List<Vehiculo> listaResultado = new ArrayList<Vehiculo>();
-        listaResultado.add(null); //corrige listaResultado.get(0) que esta más adelante.
-        for (Vehiculo v: vehiculos){
-            //recorrido por cada posicion TOP 5
 
-            /* ALTERNATIVA PARA NO REPETIR CODIGO, PREGUNTAR SI ES VALIDO
-            for (int i = 0; i < 5; i++){
-                if (v.cantidadAccidentesPorAnio(anio) > listaResultado.get(i).cantidadAccidentesPorAnio(anio)) {
-                    listaResultado.add(i, v);
-                    break; //UNA VEZ QUE LO COLOCA EN LA NUEVA LISTA TEMPORAL,
-                           //CORTA EL CICLO 'FOR' PARA NO REEMPLAZAR EN EL RESTO DE POSICIONES
-            }
-            */
-
-            if (v.cantidadAccidentesPorAnio(anio) > listaResultado.get(0).cantidadAccidentesPorAnio(anio)) {
-                listaResultado.addFirst(v); //Corrige .add(0)
-            }
-            else if (v.cantidadAccidentesPorAnio(anio) > listaResultado.get(1).cantidadAccidentesPorAnio(anio)) {
-                listaResultado.add(1, v);
-            }
-            else if (v.cantidadAccidentesPorAnio(anio) > listaResultado.get(2).cantidadAccidentesPorAnio(anio)) {
-                listaResultado.add(2, v);
-            }
-            else if (v.cantidadAccidentesPorAnio(anio) > listaResultado.get(3).cantidadAccidentesPorAnio(anio)) {
-                listaResultado.add(3, v);
-            }
-            else if (v.cantidadAccidentesPorAnio(anio) > listaResultado.get(4).cantidadAccidentesPorAnio(anio)) {
-                listaResultado.add(4, v);
+        //Filtra la lista Vehiculos
+        for (Vehiculo v: vehiculos) {
+            if (v.cantidadAccidentesPorAnio(anio) > 0) {
+                listaFiltrada.add(v);
             }
         }
+
+        //Ingresa los valores filtrados de forma ordenada a la lista resultado
+        for (Vehiculo vehiculo: listaFiltrada){
+            if (listaResultado.isEmpty()){
+                listaResultado.add(vehiculo);
+            }
+            else{
+                int j = listaResultado.size();
+                for(int i=0; i < j;i++){
+                    if (listaResultado.get(i).cantidadAccidentesPorAnio(anio) < vehiculo.cantidadAccidentesPorAnio(anio)) {
+                        listaResultado.add(i,vehiculo);
+                        break;
+                    }
+                }
+                if (j == listaResultado.size()) listaResultado.add(vehiculo);
+            }
+        }
+
 
         return listaResultado;
     }
@@ -76,35 +71,47 @@ public class Rodados {
     public List<Vehiculo> vehiculosConMayorKilometraje(){
 
         List<Vehiculo> listaResultado = new ArrayList<Vehiculo>();
-        listaResultado.add(null);
-        for (Vehiculo v: vehiculos){
-            //recorrido por cada posicion TOP 5
 
-            /* ALTERNATIVA PARA NO REPETIR CODIGO, PREGUNTAR SI ES VALIDO
-            for (int i = 0; i < 5; i++){
-                if (v.getCantidadKM() > listaResultado.get(i).getCantidadKM()) {
-                    listaResultado.add(i, v);
-                    break;
+        //Ingresa los valores filtrados de forma ordenada a la lista resultado
+        for (Vehiculo vehiculo: vehiculos){
+            if (listaResultado.isEmpty()){
+                listaResultado.add(vehiculo);
             }
-            */
-
-            if (v.getCantidadKM() > listaResultado.get(0).getCantidadKM()) {
-                listaResultado.addFirst(v);
-            }
-            else if (v.getCantidadKM() > listaResultado.get(1).getCantidadKM()) {
-                listaResultado.add(1, v);
-            }
-            else if (v.getCantidadKM() > listaResultado.get(2).getCantidadKM()) {
-                listaResultado.add(2, v);
-            }
-            else if (v.getCantidadKM() > listaResultado.get(3).getCantidadKM()) {
-                listaResultado.add(3, v);
-            }
-            else if (v.getCantidadKM() > listaResultado.get(4).getCantidadKM()) {
-                listaResultado.add(4, v);
+            else{
+                int j = listaResultado.size();
+                for(int i=0; i < j;i++){
+                    if (listaResultado.get(i).getCantidadKM() < vehiculo.getCantidadKM()) {
+                        listaResultado.add(i,vehiculo);
+                        break;
+                    }
+                }
+                if (j == listaResultado.size()) listaResultado.add(vehiculo);
             }
         }
 
+
         return listaResultado;
+
+    /* //OPCION ALTERNATIVA
+
+
+        List<Vehiculo> listaOrdenada = new ArrayList<Vehiculo>();
+        listaOrdenada = vehiculos;
+        listaOrdenada.sort(Comparator.comparingInt(Vehiculo::getCantidadKM).reversed());
+        return listaOrdenada;
+
+     */
+
+    }
+
+    //GETTERS AND SETTERS
+
+
+    public List<Vehiculo> getVehiculos() {
+        return vehiculos;
+    }
+
+    public void setVehiculos(List<Vehiculo> vehiculos) {
+        this.vehiculos = vehiculos;
     }
 }
